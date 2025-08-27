@@ -19,11 +19,11 @@ A full-stack web application for students, staff, and lecturers to manage room b
 
 ## ⚙️ Quick Start
 
- 1. Clone the repository
- `git clone https://github.com/your-username/mobileproject.git
-cd webproject`
+ 1. Clone the repository  
+ `git clone https://github.com/your-username/mobileproject.git`  
+`cd webproject`
 
- 2. Install dependencies
+ 2. Install dependencies  
  `npm install` 
  
  3. Setup Database
@@ -31,7 +31,7 @@ cd webproject`
 	- Import SQL file `webpro_complete.sql`
 	- Ensure database credentials in `config/` match your setup
 	
- 4. Run the server
+ 4. Run the server   
 	`nodemon app.js`
 	
 	- Server will run at : http://localhost:3000
