@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Register</title>
+        <link rel="stylesheet" href="/css/login/add.css">
+        <link rel="stylesheet" href="/css/login/btn_magnet.css">
+    </head>
+    <body> 
+        <section>
+            <div class="login-box">
+                <form id="editForm">
+                    <h2>Edit Room</h2>
+                    <div class="input-box">
+                        <input type="text" id="room_name" name="room_name"
+                            required>
+                        <label>room name</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" id="room_image" name="room_image"
+                            required>
+                        <label>room image</label>
+                    </div>
+                    <div class="input-box">
+                        <label id="des">room description</label>
+                        <textarea id="room_des" name="room_des" cols="40"
+                            rows="10"></textarea>
+                    </div>
+                    <button class="btn" type="button"
+                        onclick="redirectToEdit()" style="--clr:#29aeef;"><span>Edit data</span></button>
+                    <div class="register-link">
+                        <p>go to room list page?<a href="/roomSta">click</a></p>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <script>
+        function redirectToEdit() {
+    // Extract roomId from the URL
+    const urlPath = window.location.pathname;
+    const roomId = urlPath.split('/').pop();
+
+    fetch(`/edit/${roomId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            room_name: document.getElementById('room_name').value,
+            room_image: document.getElementById('room_image').value,
+            room_des: document.getElementById('room_des').value,
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        window.location.href = '/roomSta';
+    })
+    .catch((error) => console.error('Error:', error));
+}
+        </script>
+        <script>
+            let btn = document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('mousemove',(e)=>{
+                    let x = e.offsetX;
+                    let y = e.offsetY;
+                    let btnWidth = btn.clientWidth;
+                    let btnHeight = btn.clientHeight;
+                    let transX = (x - btnWidth/2);
+                    let transY = (y - btnHeight/2);
+                    btn.style.transform = `translateX(${transX}px) translateY(${transY}px)`;
+    
+                    let mx = e.pageX - btn.offsetLeft;
+                    let my = e.pageY - btn.offsetTop;
+                    btn.style.setProperty('--x', mx + 'px')
+                    btn.style.setProperty('--y', my + 'px')
+    
+    
+                })
+                btn.addEventListener('mouseout',(e)=>{
+                    btn.style.transform = '';
+                })
+            })
+        </script>
+        <!-- Rest of your JavaScript code -->
+    </body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/seerequest/appreq.css">
+    <link rel="stylesheet" href="/css/nav/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <title>Approve Request</title>
+</head>
+
+<body>
+    <!-- Side navigation -->
+    <nav class="navbar navbar-light bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand"><img src="/img/nav/logo 16.png" alt="" width="140rem"></a>
+            <form class="d-flex">
+                <h2 style="color: rgb(232, 236, 240);">Dashboard</h2>
+            </form>
+            <div></div>
+        </div>
+    </nav>
+
+    <nav class="sidebar" style="background-color: rgb(237, 228, 243)">
+        <header>
+            <div class="text">
+                <span><img src="/img/nav/logo.png" width="106.5%"></span>
+            </div>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="/roomApp">
+                            <i class='bx bx-home-alt icon'><img src="/img/nav/list.png" width="32px"></i>
+                            <span class="text nav-text">Browse room list</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link active">
+                        <a href="/approverReq" id="book">
+                            <i class='bx bx-bar-chart-alt-2 icon'><img src="/img/nav/book.png" width="32px"></i>
+                            <span class="text nav-text">Booking request</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/dashapp">
+                            <i class='bx bx-bell icon'><img src="/img/nav/dash.png" width="24px"></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/hisApprover">
+                            <i class='bx bx-pie-chart-alt icon'><img src="/img/nav/his.png" width="32px"></i>
+                            <span class="text nav-text">History</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="">
+                    <a href="/accapp">
+                        <i class='bx bx-log-out icon'><img src="/img/nav/user.png" width="25px"></i>
+                        <span class="text nav-text">Account</span>
+                    </a>
+                </li>
+
+                <li class="">
+                    <a href="/logout">
+                        <i class='bx bx-log-out icon'><img src="/img/nav/logout.png" width="25px"></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    <section class="home">
+        <div class="fillter">
+            <div class="container">
+                <!-- table -->
+                <table>
+                    <thead>
+                        <tr>
+                        <tr>
+                            <th>
+                                <h1>Booking Request</h1>
+                                <br>
+                                <p><label>Date: <span id="date"></span></label></p>
+                                <br>
+                                <p><label>Time: <span id="time"></span></label></p>
+                                <br>
+                                <p><label>Room: <span id="room"></span></label></p>
+                                <br>
+                                <p><label>ID: <span id="id"></span></label></p>
+                                <br>
+                                <p><label>Name: <span id="name"></span></label></p>
+                                <br>
+                                <button id="Approve"><strong>✓ Approve</strong></button>
+                                <button id="Reject"><strong>✕ Reject</strong></button>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // ดึง request_id และ selecttime จาก URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const requestId = urlParams.get('request_id');
+            const selectTime = urlParams.get('selecttime')
+
+            // ดึงข้อมูลจาก API
+            fetch(`/api/appv/${requestId}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // เพิ่มบรรทัดนี้เพื่อแสดงข้อมูลที่ได้รับจาก API
+                    // ตรวจสอบว่ามีข้อมูลในอาร์เรย์หรือไม่ก่อนที่จะเข้าถึง
+                    if (data && data.length > 0) {
+                        // แสดงข้อมูลในหน้า HTML
+                        const date = new Date(data[0].date); // สร้างวัตถุ Date จากข้อมูลที่ได้รับ
+                        const formattedDate = date.toLocaleDateString('en-US', { timeZone: 'UTC' }); // แปลงวันที่เป็นรูปแบบที่ต้องการ
+                        document.getElementById('date').textContent = formattedDate; // แสดงวันที่ในหน้า HTML
+                        document.getElementById('time').textContent = getTimeDescription(selectTime);
+                        document.getElementById('room').textContent = data[0].roomname;
+                        document.getElementById('id').textContent = data[0].student_id;
+                        document.getElementById('name').textContent = data[0].name;
+                         // ฟังก์ชันสำหรับแสดงเวลาตาม selecttime
+            function getTimeDescription(selectTime) {
+                switch (selectTime) {
+                    case '1':
+                        return '08:00-10:00';
+                    case '2':
+                        return '10:00-12:00';
+                    case '3':
+                        return '13:00-15:00';
+                    case '4':
+                        return '15:00-17:00';
+                    default:
+                        return '';
+                }
+            }
+
+                    } else {
+                        console.error('Data not found or empty.');
+                    }
+                })
+                .catch(error => console.error('Error fetching data:', error));
+
+            // ฟังก์ชันสำหรับอัปเดตสถานะของ request
+            function updateRequestStatus(newStatus) {
+                fetch(`/api/updateRequestStatus/${requestId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log(`Request ${requestId} updated successfully.`);
+                            // ทำการโหลดหน้าใหม่หรือปรับเปลี่ยนส่วนของหน้าเพื่อส่งผลการอัปเดตสถานะ
+                            // ตามความเหมาะสม
+                        } else {
+                            console.error('Failed to update request status.');
+                        }
+                    })
+                    .catch(error => console.error('Error updating request status:', error));
+            }
+
+            // เมื่อกดปุ่ม Approve
+            document.getElementById('Approve').addEventListener('click', function () {
+                updateRequestStatus('APPROVED');
+                // แสดงข้อความและ icon หลังจากกด Approve
+            Swal.fire({
+                icon: 'success',
+                title: 'Request Approved',
+                showConfirmButton: true,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                // หลังจากกดปุ่ม OK ใน alert ให้เปลี่ยนเส้นทางไปยัง approve_view.html
+                if (result.isConfirmed) {
+                    window.location.href = '/approveView';
+                }
+            });
+            });
+
+            // เมื่อกดปุ่ม Reject
+            document.getElementById('Reject').addEventListener('click', function () {
+                updateRequestStatus('REJECTED');
+                 // แสดงข้อความและ icon หลังจากกด Reject
+            Swal.fire({
+                icon: 'error',
+                title: 'Request Rejected',
+                showConfirmButton: true,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                // หลังจากกดปุ่ม OK ใน alert ให้เปลี่ยนเส้นทางไปยัง approve_view.html
+                if (result.isConfirmed) {
+                    window.location.href = '/approveView';
+                }
+            });
+            });
+        });
+
+
+    </script>
+
+</body>
+
+</html>

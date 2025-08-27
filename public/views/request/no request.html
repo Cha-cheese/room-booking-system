@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History-User</title>
+    <link rel="stylesheet" href="/css/nav/resty.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/request/book.css">
+</head>
+<body>
+    <div class="fillter">
+        <!-- navbar -->
+        <nav class="sidebar" style="background-color: rgb(237, 228, 243)">
+            <header>
+                    <div class="text">
+                        <span><img src="/img/nav/logo.png" width="106.5%"></span>
+                    </div>
+            </header>
+    
+            <div class="menu-bar">
+                <div class="menu">
+                    <ul class="menu-links">
+                        <li class="nav-link">
+                            <a href="/roomStu"> 
+                                <i class='bx bx-home-alt icon'><img src="/img/nav/list.png" width="32px"></i>
+                                <span class="text nav-text">Browse room list</span>
+                            </a>
+                        </li>
+    
+                        <li class="nav-link active">
+                            <a href="#" id="book">
+                                <i class='bx bx-bar-chart-alt-2 icon'><img src="/img/nav/book.png" width="32px"></i>
+                                <span class="text nav-text">Booking</span>
+                            </a>
+                        </li>
+    
+                        <li class="nav-link">
+                            <a href="/hisUser">
+                                <i class='bx bx-pie-chart-alt icon'><img src="/img/nav/his.png" width="32px"></i>
+                                <span class="text nav-text">History</span>
+                            </a>
+                        </li>
+    
+                    </ul>
+                </div>
+    
+                <div class="bottom-content">
+                    <li class="">
+                        <a href="/accstu">
+                            <i class='bx bx-log-out icon'><img src="/img/nav/user.png" width="25px"></i>
+                            <span class="text nav-text">Account</span>
+                        </a>
+                    </li>
+                    
+                    <li class="">
+                        <a href="/logout">
+                            <i class='bx bx-log-out icon'><img src="/img/nav/logout.png" width="25px"></i>
+                            <span class="text nav-text">Logout</span>
+                        </a>
+                    </li>
+                </div>
+            </div>
+        </nav>
+    
+        <section class="home">
+           
+            <div class="container">
+                <!-- table -->
+                 <table>
+            <thead>
+                <tr>
+                    <tr>
+                        <tr><th>
+                            <h1 style="text-align: center;">Request Details</h1>
+                        <p><label >Date:</label></p>
+                        <p><label >Room Type: </label></p>
+                        <p><label >Time:</label></p>
+                        <p><label >Status:</label></p>
+                        <p><label>Requirements:</label></p>
+                        <p><label>ID:</label></p>
+                        <p style="margin-bottom: 6px;"><label>Name:</label></p>
+
+                        <br><br>
+                    </tr>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+            </div>
+        </section>
+    </div>
+    <script>
+        async function getUsername() {
+            try {
+                // connect to server to get data
+                const response = await fetch('/user');
+                if (response.ok) {
+                    const data = await response.json();
+                    document.querySelector('#name').textContent = data.name;
+                } else if (response.status == 401) {
+                    const data = await response.text();
+                    throw Error(data);
+                } else {
+                    // alert('Server error');
+                    throw Error('Server error');
+                }
+            } catch (error) {
+                console.error(err.message);
+                Swal.fire({
+                    "icon": "error",
+                    "title": err.message
+                });
+            }
+        }
+        // get user data
+        getUsername();
+    </script>
+</body>
+</html>

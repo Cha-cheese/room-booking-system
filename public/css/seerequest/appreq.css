@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.fillter {
+    height: 1000px;
+    background-color: white;
+    color: #eeeeee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* nav {
+    background-color: gray;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    a {
+        text-decoration: none;
+    }
+} */
+/* 
+table {
+    display: block;
+    align-items: center;
+    justify-content: center;
+
+    th,td {
+        text-align: center;
+        border: 2px solid black;
+        padding: 20px;
+    }
+} */
+
+
+table{
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 45%; 
+    border-collapse: collapse;
+    border-spacing: 0;
+    box-shadow: 0 2px 15px rgba(244, 239, 214, 0.7);
+    border-radius: 12px 12px 12px 12px;
+    overflow: hidden;
+   
+    td , th{
+        padding: 15px 20px;
+        text-align:center;
+    }
+    th{
+        background-color: #4b1c71;
+        color: #ffffff;
+        font-family: 'Open Sans',Sans-serif;
+        font-weight: 200;
+       
+    }
+    
+    tr{
+        width: 100%;
+        color: #000000;
+        background-color: #fafafa;
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    tr:nth-child(even){
+        color: #000000;
+        background-color: #f5f5f5;
+    }
+
+    tr:hover {
+        color: #000000;
+        background-color: #eeeeee;
+    }
+}
+
+#Approve{
+    background-color:yellowgreen;
+    border-radius: 8px;
+    padding: 5px;
+    color: white;
+    font-size: large;
+    width: 120px;
+}
+#Reject{
+    background-color:red;
+    border-radius: 8px;
+    padding: 5px;
+    margin-left: 5px;
+    color: white;
+    font-size: large;
+    width: 120px;
+}
+
+/* body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+} */

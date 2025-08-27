@@ -1,0 +1,138 @@
+<!-- Coding by CodingLab | www.codinglabweb.com -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="/css/nav/navstu.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!----===== Boxicons CSS ===== -->
+
+
+    <title>student</title>
+</head>
+
+<body>
+    <nav class="sidebar" style="background-color: rgb(237, 228, 243)">
+        <header>
+            <div class="text">
+                <span><img src="/img/nav/logo.png" width="106.5%"></span>
+            </div>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="/roomStu">
+                            <i class='bx bx-home-alt icon'><img src="/img/nav/list.png" width="32px"></i>
+                            <span class="text nav-text">Browse room list</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link active">
+                        <a href="/studentDetail">
+                            <i class='bx bx-bar-chart-alt-2 icon'><img src="/img/nav/book.png" width="32px"></i>
+                            <span class="text nav-text">Booking</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/hisUser">
+                            <i class='bx bx-pie-chart-alt icon'><img src="/img/nav/his.png" width="32px"></i>
+                            <span class="text nav-text">History</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="">
+                    <a href="/accstu" id="acc">
+                        <i class='bx bx-log-out icon'><img src="/img/nav/user.png" width="25px"></i>
+                        <span class="text nav-text">Account</span>
+                    </a>
+                </li>
+
+                <li class="">
+                    <a href="/logout">
+                        <i class='bx bx-log-out icon'><img src="/img/nav/logout.png" width="25px"></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    <section class="home">
+        <div class="fillter">
+            <div id="doc" class="container text-dark d-flex justify-content-center">
+                <div class="card border rounded-3 shadow" style="width: 80%; background-color: #fff0ff; margin-top: 150px;">
+                    <h1 class="text-center p-5 card-title" id="username">Jassica1234</h1>
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="/img/account/account.png" style="width: 200px; margin-left: 40px;" class="pro">
+                        </div>
+
+                        <div class="col-2" id="userInfo">
+                            <h5>ID student</h5>
+                            <h5 class="pt-5">Name</h5>
+                            <h5 class="pt-5 pb-5">Username</h5>
+                        </div>
+                        
+                        <div class="col-2">
+                            <p style="margin-bottom: 10%;" id="studentId"></p>
+                            <p id="name" style="margin-top:46%;"></p>
+                            <p id="username2" style="margin-top:46%;"></p>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+         async function getUsername() {
+            try {
+                // connect to server to get data
+                const response = await fetch('/user');
+                if (response.ok) {
+                    const data = await response.json();
+                    document.querySelector('#name').textContent = data.name;
+                    document.querySelector('#username').textContent = data.username;
+                    document.querySelector('#studentId').textContent = data.studentId;
+                    document.querySelector('#username2').textContent = data.username;
+                } else if (response.status == 401) {
+                    const data = await response.text();
+                    throw Error(data);
+                } else {
+                    // alert('Server error');
+                    throw Error('Server error');
+                }
+            } catch (error) {
+                console.error(err.message);
+                Swal.fire({
+                    "icon": "error",
+                    "title": err.message
+                });
+            }
+        }
+        // get user data
+        getUsername();
+    </script>
+    <script src="/js/dashboard/vanilla-tilt.js"></script>
+    <script>
+    VanillaTilt.init(document.querySelectorAll(".card"), {
+        max: 25,
+        speed: 400,
+        glare: true,
+        "max-glare": 1,
+    });
+</script>
+</body>
+</html>

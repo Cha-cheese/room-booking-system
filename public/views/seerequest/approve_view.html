@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request View</title>
+    <link rel="stylesheet" href="/css/nav/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .container {
+            display: flex;
+            position: relative;
+            margin-right: 2%;
+            max-width: 1200px;
+            flex-wrap: wrap;
+            font-size: 24px;
+
+        }
+
+        /* .container {
+            display: flex;
+            justify-content: flex-start;
+            จัดการ์ดไปทางซ้าย
+            flex-wrap: wrap;
+            font-size: 24px;
+        }  */
+
+        #card1 {
+            flex: 1;
+            /* กำหนดความยาวของ card1 ให้มากกว่า card2 */
+            /* margin-right: 10px; */
+            /* เพื่อให้มีช่องว่างระหว่าง card1 และ card2 */
+
+        }
+
+        #card2 {
+            flex: 1;
+            align-self: center;
+        }
+
+        .card {
+            border-radius: 10px;
+            /* เปลี่ยนมุมโค้งของการ์ด */
+            margin: 10px;
+            width: 200%;
+            height: 75px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.578);
+            background-color: #e1c7ee;
+            margin-top: 20px;
+            max-width: 800px;
+            /* position: relative; */
+        }
+
+        /* .card-body {
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        a#btnview {
+            margin-left: auto;
+            text-decoration: none;
+            color: wheat;
+            border: 2px solid blue;
+            background-color: blue;
+            border-radius: 10px;
+            padding: 2px 10px;
+        } */
+
+        .card-body {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 10px;
+            margin-left: 20px;
+            text-align: center;
+
+        }
+        .img-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .views-text {
+            margin-right: 100px;
+        }
+
+        a#btnview {
+            margin-left: auto;
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            border: 2px solid #7f4ca5;
+            background-color:#7f4ca5;
+            padding: 2px 10px;
+            border-radius: 10px;
+            margin-bottom: 6px;
+        }
+
+        p {
+            display: flex;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Side navigation -->
+    <nav class="navbar navbar-light bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand"><img src="/img/nav/logo 16.png" alt="" width="140rem"></a>
+            <form class="d-flex">
+                <h2 style="color: aliceblue;">Dashboard</h2>
+            </form>
+        </div>
+    </nav>
+
+    <nav class="sidebar" style="background-color: rgb(237, 228, 243);">
+        <header>
+            <div class="text">
+                <span><img src="/img/nav/logo.png" width="106.5%"></span>
+            </div>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="/roomApp">
+                            <i class='bx bx-home-alt icon'><img src="/img/nav/list.png" width="32px"></i>
+                            <span class="text nav-text">Browse room list</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link active">
+                        <a href="/approveView" id="book">
+                            <i class='bx bx-bar-chart-alt-2 icon'><img src="/img/nav/book.png" width="32px"></i>
+                            <span class="text nav-text">Booking request</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/dashapp">
+                            <i class='bx bx-bell icon'><img src="/img/nav/dash.png" width="24px"></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/hisApprover">
+                            <i class='bx bx-pie-chart-alt icon'><img src="/img/nav/his.png" width="32px"></i>
+                            <span class="text nav-text">History</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="">
+                    <a href="/accapp">
+                        <i class='bx bx-log-out icon'><img src="/img/nav/user.png" width="25px"></i>
+                        <span class="text nav-text">Account</span>
+                    </a>
+                </li>
+
+                <li class="">
+                    <a href="/logout">
+                        <i class='bx bx-log-out icon'><img src="/img/nav/logout.png" width="25px"></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+            </div>
+        </div>
+
+    </nav>
+
+    <section class="home">
+        <div class="fillter">
+            <div class="container">
+                <div class="card-container">
+                    <div id="card1"></div>
+                </div>
+                <div class="card-container">
+                    <div id="card2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- HTML -->
+
+    <!-- JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/api/appv')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch data');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const container1 = document.getElementById('card1');
+                    data.forEach(item => {
+                        // Check if the request status is 'pending'
+                        if (item.status === 'pending') {
+                            // Create card and append it to container1
+                            const card = createCard(item);
+                            container1.appendChild(card);
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+ 
+        // Function to create card element
+        function createCard(item) {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            const cardBody = document.createElement('div');
+            cardBody.classList.add('card-body', 'd-flex', 'justify-content-between');
+            cardBody.innerHTML = `
+            <p id="room" ><strong>Room: </strong>&nbsp;${item.roomname}</p>
+            <p><strong>ID: </strong>&nbsp;${item.student_id}</p>
+            <p><strong>Name: </strong>&nbsp;${item.name}</p>
+            <a href="#" class="d-flex justify-content-end" id="btnview" onclick="viewRequest(${item.request_id}, ${item.room_id}, ${item.student_id}, '${item.name}','${item.selecttime}')"><img src="/img/seerequest/views.png" width="34px" width="34px" alt="View">View</a>`;
+            card.appendChild(cardBody);
+            return card;
+        }
+
+        function viewRequest(requestId, roomId, studentId, name, selectTime) {
+            // ส่งข้อมูลไปยังหน้า /appsee และแสดงข้อมูลใน console.log
+            console.log('Request ID:', requestId);
+            console.log('Room ID:', roomId);
+            console.log('Student ID:', studentId);
+            console.log('Name:', name);
+            console.log('Select Time:', selectTime);
+            // ส่งไปยังหน้า /appsee พร้อมกับข้อมูลที่ต้องการ
+            window.location.href = `/approverReq?request_id=${requestId}&room_id=${roomId}&student_id=${studentId}&name=${name}&selecttime=${selectTime}`;
+        }
+
+    </script>
+
+
+</body>
+
+</html>

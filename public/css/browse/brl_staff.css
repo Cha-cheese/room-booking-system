@@ -1,0 +1,182 @@
+body { 
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding-top: 12vh;
+    
+}  
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+}
+
+.product-name {
+    flex-basis: 100%;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.product-image {
+    flex-basis: 40%;
+    max-width: 400px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.product-info {
+    flex-basis: 60%;
+}
+
+.availability-list {
+    margin: 10px 0;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.availability-list li {
+    flex-basis: 50%;
+    margin-bottom: 10px;
+}
+
+.availability-status {
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.FREE {
+    background-color: #00ff44;
+    color: black;
+    
+}
+
+.PENDING {
+    background-color: #fffb00;
+    color: black;
+    
+}
+
+.RESERVED {
+    background-color: #0400ff;
+    color: white;
+
+}
+
+.DISABLED {
+    background-color: #ff0000;
+    color: white;
+    
+}
+.bg{
+    width: 500px;
+    height: 300px;
+    content: '';
+    z-index: 0;
+    background-image: linear-gradient(
+        45deg, #dc422a, blue
+    );
+    position: fixed;
+    z-index: -1;
+    border-radius: 20% 30% 80% 10%;
+    filter: blur(150px);
+    top: 50%;
+    left: 50%;
+    transform: translate(10%, -50%);
+    
+}
+div.nav{
+    background-color: white;
+    width: 100vw;
+    height: 12vh;
+    top: 0;
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+}
+.search{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.add{ 
+    flex: 1;
+}
+#add_btn{ 
+    padding: 8px 12px;
+    font-size: 16px;
+    background-color: #1da421;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.edit{
+    display: flex;
+    justify-content: end;
+}
+.edit_btn{
+    padding: 8px 12px;
+    font-size: 16px;
+    background-color: #e1ff00;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.date{
+    margin-right: 100px;
+}
+.bg2{
+    width: 100vw;
+    height: 100vh;
+    content: '';
+    z-index: 0;
+    background-color: rgb(255, 255, 255);
+    /* background-image: black; */
+    position: fixed;
+    z-index: -2;
+}
+.con {
+    height: 90vh;
+    overflow-y: auto;
+    /* padding-right: 20px; ป้องกันการบั๊กของแถบเลื่อนที่ซ่อนข้อความเมื่อไม่มีการเลื่อน */
+    margin-top: 80px;
+    /* margin-bottom: 80px; */
+}
+.add{
+    display: flex;
+    justify-content: space-around;
+}
+.time{
+    display: flex;
+    justify-content: space-around;
+}
+.time label{
+    margin-left: 0;
+    left: 0;
+}
+a.FREE{
+    margin-right: 35px;
+}
+.bar{
+    position: fixed;
+    /* margin-left: 200px; */
+    display: flex;
+    justify-content: flex-start;
+    padding: 20px;
+    background-color: #fff;
+    width: 100vw;
+}

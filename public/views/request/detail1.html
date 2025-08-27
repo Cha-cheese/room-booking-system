@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History-User</title>
+    <link rel="stylesheet" href="/css/request/book.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/nav/resty.css">
+</head>
+<body>
+    <div class="fillter">
+        <!-- navbar -->
+        <nav class="sidebar" style="background-color: rgb(237, 228, 243)">
+            <header>
+                    <div class="text">
+                        <span><img src="/img/nav/logo.png" width="106.5%"></span>
+                    </div>
+            </header>
+    
+            <div class="menu-bar">
+                <div class="menu">
+                    <ul class="menu-links">
+                        <li class="nav-link">
+                            <a href="/roomStu"> 
+                                <i class='bx bx-home-alt icon'><img src="/img/nav/list.png" width="32px"></i>
+                                <span class="text nav-text">Browse room list</span>
+                            </a>
+                        </li>
+    
+                        <li class="nav-link active">
+                            <a href="#" id="book">
+                                <i class='bx bx-bar-chart-alt-2 icon'><img src="/img/nav/book.png" width="32px"></i>
+                                <span class="text nav-text">Booking</span>
+                            </a>
+                        </li>
+    
+                        <li class="nav-link">
+                            <a href="/hisUser">
+                                <i class='bx bx-pie-chart-alt icon'><img src="/img/nav/his.png" width="32px"></i>
+                                <span class="text nav-text">History</span>
+                            </a>
+                        </li>
+    
+                    </ul>
+                </div>
+    
+                <div class="bottom-content">
+                    <li class="">
+                        <a href="/accstu">
+                            <i class='bx bx-log-out icon'><img src="/img/nav/user.png" width="25px"></i>
+                            <span class="text nav-text">Account</span>
+                        </a>
+                    </li>
+                    
+                    <li class="">
+                        <a href="/logout">
+                            <i class='bx bx-log-out icon'><img src="/img/nav/logout.png" width="25px"></i>
+                            <span class="text nav-text">Logout</span>
+                        </a>
+                    </li>
+                </div>
+            </div>
+        </nav>
+    
+        <section class="home">
+           
+            <div class="container">
+                <!-- table -->
+                <head>
+                    <style>
+                        /* Centering the "Back to homepage" link */
+                        #Bhp-container {
+                            text-align: center;
+                            margin-top: 20px; /* Adjust margin as needed */
+                        }
+                
+                        /* Styling for the "Back to homepage" link */
+                        #Bhp {
+                            padding: 8px;
+                            text-decoration: none;
+                            background-color: rgb(255, 192, 255);
+                            color: white;
+                            border-radius: 15px;
+                            font-size: 24px;
+                            display: inline-block;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <table>
+                        <thead>
+                            <tr>
+                               <th>
+                                    <h1 style="text-align: center;">Request Book</h1>
+                                    <p><label>Date : </label><span id="date"></span></p>
+                                    <p><label>Room : </label><span id="roomName"></span></p>
+                                    <p><label>Time : </label><span id="time"></span></p>
+                                    <p><label>Status: </label> <span id="status"></span></p>
+                                    <p><strong>ID:</strong> <span id="studentId"></span></p>
+                                    <p><strong>Name:</strong> <span id="Name"></span></p>
+                                    <div id="Bhp-container">
+                                        <a href="/roomStu" id="Bhp">Back to homepage</a>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody"></tbody>
+                    </table>
+        </table>
+            </div>
+        </section>
+    </div>
+    <script src="/js/request/detail.js"></script>
+
+</body>
+</html>
